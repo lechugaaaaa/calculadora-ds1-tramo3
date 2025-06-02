@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Puntos Subsidio DS1 Tramo 3</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+    label { display: block; margin-top: 10px; }
+    input, select { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; }
+    #resultado { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Calculadora Subsidio DS1 Tramo 3</h2>
+
+  <label>Ingreso mensual del grupo familiar (CLP):</label>
+  <input type="number" id="ingreso">
+
+  <label>Número de integrantes del hogar:</label>
+  <input type="number" id="integrantes">
+
+  <label>Ahorro en cuenta para la vivienda (CLP):</label>
+  <input type="number" id="ahorro">
+
+  <label>¿El postulante es jefe(a) de hogar mujer?</label>
+  <select id="jefatura">
+    <option value="0">No</option>
+    <option value="10">Sí</option>
+  </select>
+
+  <label>¿Tiene personas con discapacidad en el hogar?</label>
+  <select id="discapacidad">
+    <option value="0">No</option>
+    <option value="15">Sí</option>
+  </select>
+
+  <button onclick="calcularPuntaje()">Calcular Puntaje</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function calcularPuntaje() {
+      const ingreso = parseInt(document.getElementById("ingreso").value);
+      const integrantes = parseInt(document.getElementById("integrantes").value);
+      const ahorro = parseInt(document.getElementById("ahorro").value);
+      const jefatura = parseInt(document.getElementById("jefatura").value);
+      const discapacidad = parseInt(document.getElementById("discapacidad").value);
+
+      let puntaje = 0;
+
+      // Asignación de puntaje según ingreso
+      if (ingreso <= 900000) puntaje += 20;
+      else if (ingreso <= 1200000) puntaje += 15;
+      else puntaje += 10;
+
+      // Puntaje por número de integrantes
+      if (integrantes >= 4) puntaje += 10;
+
+      // Puntaje por ahorro
+      if (ahorro >= 2000000) puntaje += 20;
+      else if (ahorro >= 1500000) puntaje += 15;
+      else if (ahorro >= 1000000) puntaje += 10;
+
+      // Puntajes adicionales
+      puntaje += jefatura;
+      puntaje += discapacidad;
+
+      document.getElementById("resultado").innerText = "Puntaje estimado: " + puntaje + " puntos";
+    }
+  </script>
+</body>
+</html>
